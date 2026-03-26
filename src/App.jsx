@@ -351,11 +351,11 @@ function ProductDetailPage() {
   return (
     <section className="product-detail-section" style={{ padding: "120px 32px 80px", maxWidth: 1280, margin: "0 auto" }}>
       <button onClick={() => navigate("/catalog")} style={{
-        background: "none", border: "none", cursor: "pointer",
-        fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-        color: "#1a73e8", fontWeight: 500, marginBottom: 32,
-        display: "flex", alignItems: "center", gap: 6,
-        minHeight: 44,
+        fontSize: 11, fontWeight: 600, letterSpacing: "0.08em",
+        color: "#1a73e8", background: "#eef3fb", borderRadius: 6,
+        padding: "4px 10px", textTransform: "uppercase",
+        border: "none", cursor: "pointer", marginBottom: 32,
+        fontFamily: "'DM Sans', sans-serif",
       }}>← Back to Catalog</button>
 
       <div className="product-detail-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }}>

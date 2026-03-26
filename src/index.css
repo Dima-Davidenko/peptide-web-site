@@ -185,7 +185,13 @@ input, select {
   }
   .features-grid {
     grid-template-columns: 1fr 1fr !important;
-    gap: 14px !important;
+    gap: 12px !important;
+    width: 100%;
+  }
+  .features-grid > div {
+    padding: 16px !important;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   /* ── Products grid (catalog + featured) ── */
