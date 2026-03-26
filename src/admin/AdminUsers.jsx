@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getUsers, saveUsers } from "../data";
 
 const STATUS_OPTIONS = ["Pending", "Verified", "Suspended"];
@@ -14,6 +14,12 @@ export default function AdminUsers() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Escape") setDeleteConfirm(null); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, []);
 
   const filtered = users.filter(u => {
     const matchFilter = filter === "All" || u.status === filter;

@@ -529,6 +529,12 @@ function AuthModal({ mode, onClose, onLogin }) {
   const [tab, setTab] = useState(mode);
   const [form, setForm] = useState({ name: "", email: "", password: "", npi: "", specialty: "" });
 
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
   const handleSubmit = () => {
     if (tab === "login" && form.email && form.password) {
       onLogin(form.email.split("@")[0]);

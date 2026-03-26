@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getProducts, saveProducts } from "../data";
 
 const PRODUCT_CATEGORIES = ["Recovery", "Metabolic", "Immune", "Growth", "Hormonal"];
@@ -22,6 +22,12 @@ function ProductModal({ product, onSave, onClose }) {
       ? { ...product, sizes: product.sizes.join(", "), price: String(product.price) }
       : EMPTY_FORM
   );
+
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
 
   const set = (field, val) => setForm(f => ({ ...f, [field]: val }));
 
@@ -147,6 +153,16 @@ export default function AdminProducts() {
   const [products, setProducts] = useState(() => getProducts());
   const [modal, setModal] = useState(null); // null | "add" | product object
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key !== "Escape") return;
+      if (deleteConfirm) setDeleteConfirm(null);
+      else if (modal) setModal(null);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [modal, deleteConfirm]);
 
   const handleSave = (product) => {
     const updated = modal === "add"
