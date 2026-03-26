@@ -11,9 +11,12 @@ const inputStyle = {
 };
 
 // ─── Header ───
-function Header({ isLoggedIn, onAuthClick, userName }) {
+function Header({ isLoggedIn, onAuthClick, userName, onChatOpen }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   const isActive = (path) => {
     if (path === "/") return pathname === "/";
@@ -21,90 +24,149 @@ function Header({ isLoggedIn, onAuthClick, userName }) {
     return pathname === path;
   };
 
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/catalog", label: "Catalog" },
+    { path: "/about", label: "About" },
+    { path: "/coa", label: "COA Library" },
+  ];
+
   return (
-    <header style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)",
-      borderBottom: "1px solid #e8e8e8",
-    }}>
-      <div style={{
-        maxWidth: 1280, margin: "0 auto", padding: "0 32px",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        height: 72,
+    <>
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)",
+        borderBottom: "1px solid #e8e8e8",
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
-             onClick={() => navigate("/")}>
-          <div style={{
-            width: 38, height: 38, borderRadius: 10,
-            background: "linear-gradient(135deg, #0a2540, #1a73e8)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            color: "#fff", fontSize: 18, fontWeight: 700,
-          }}>P</div>
-          <span style={{
-            fontFamily: "'Instrument Serif', serif", fontSize: 24,
-            color: "#0a2540", letterSpacing: "-0.02em",
-          }}>PeptidePro</span>
-          <span style={{
-            fontSize: 10, color: "#1a73e8", fontWeight: 600,
-            border: "1px solid #1a73e8", borderRadius: 4,
-            padding: "2px 6px", marginLeft: 2, letterSpacing: "0.05em",
-          }}>USA</span>
-        </div>
+        <div className="header-inner" style={{
+          maxWidth: 1280, margin: "0 auto", padding: "0 32px",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          height: 72,
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
+               onClick={() => navigate("/")}>
+            <div style={{
+              width: 38, height: 38, borderRadius: 10,
+              background: "linear-gradient(135deg, #0a2540, #1a73e8)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#fff", fontSize: 18, fontWeight: 700,
+            }}>P</div>
+            <span style={{
+              fontFamily: "'Instrument Serif', serif", fontSize: 24,
+              color: "#0a2540", letterSpacing: "-0.02em",
+            }}>PeptidePro</span>
+            <span style={{
+              fontSize: 10, color: "#1a73e8", fontWeight: 600,
+              border: "1px solid #1a73e8", borderRadius: 4,
+              padding: "2px 6px", marginLeft: 2, letterSpacing: "0.05em",
+            }}>USA</span>
+          </div>
 
-        <nav style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          {[
-            { path: "/", label: "Home" },
-            { path: "/catalog", label: "Catalog" },
-            { path: "/about", label: "About" },
-            { path: "/coa", label: "COA Library" },
-          ].map(item => (
-            <button key={item.path} onClick={() => navigate(item.path)} style={{
-              background: "none", border: "none", cursor: "pointer",
-              fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-              fontWeight: isActive(item.path) ? 600 : 400,
-              color: isActive(item.path) ? "#1a73e8" : "#0a2540",
-              position: "relative", padding: "4px 0",
-            }}>
-              {item.label}
-              {isActive(item.path) && <div style={{
-                position: "absolute", bottom: -2, left: 0, right: 0,
-                height: 2, background: "#1a73e8", borderRadius: 1,
-              }} />}
-            </button>
-          ))}
-        </nav>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {isLoggedIn ? (
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: "50%",
-                background: "linear-gradient(135deg, #1a73e8, #0a2540)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#fff", fontSize: 14, fontWeight: 600,
-              }}>{userName?.charAt(0) || "D"}</div>
-              <span style={{ fontSize: 14, fontWeight: 500, color: "#0a2540" }}>
-                {userName || "Dr. Smith"}
-              </span>
-            </div>
-          ) : (
-            <>
-              <button onClick={() => onAuthClick("login")} style={{
+          <nav className="header-nav" style={{ display: "flex", alignItems: "center", gap: 32 }}>
+            {navItems.map(item => (
+              <button key={item.path} onClick={() => navigate(item.path)} style={{
                 background: "none", border: "none", cursor: "pointer",
                 fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                fontWeight: 500, color: "#0a2540",
-              }}>Sign In</button>
-              <button onClick={() => onAuthClick("register")} style={{
-                background: "#0a2540", color: "#fff", border: "none",
-                borderRadius: 8, padding: "10px 20px", cursor: "pointer",
-                fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                fontWeight: 600, letterSpacing: "0.01em",
-              }}>Create Account</button>
-            </>
-          )}
+                fontWeight: isActive(item.path) ? 600 : 400,
+                color: isActive(item.path) ? "#1a73e8" : "#0a2540",
+                position: "relative", padding: "4px 0",
+              }}>
+                {item.label}
+                {isActive(item.path) && <div style={{
+                  position: "absolute", bottom: -2, left: 0, right: 0,
+                  height: 2, background: "#1a73e8", borderRadius: 1,
+                }} />}
+              </button>
+            ))}
+          </nav>
+
+          <div className="header-actions" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            {isLoggedIn ? (
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{
+                  width: 36, height: 36, borderRadius: "50%",
+                  background: "linear-gradient(135deg, #1a73e8, #0a2540)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "#fff", fontSize: 14, fontWeight: 600,
+                }}>{userName?.charAt(0) || "D"}</div>
+                <span style={{ fontSize: 14, fontWeight: 500, color: "#0a2540" }}>
+                  {userName || "Dr. Smith"}
+                </span>
+              </div>
+            ) : (
+              <>
+                <button onClick={() => onAuthClick("login")} style={{
+                  background: "none", border: "none", cursor: "pointer",
+                  fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                  fontWeight: 500, color: "#0a2540",
+                }}>Sign In</button>
+                <button onClick={() => onAuthClick("register")} style={{
+                  background: "#0a2540", color: "#fff", border: "none",
+                  borderRadius: 8, padding: "10px 20px", cursor: "pointer",
+                  fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                  fontWeight: 600, letterSpacing: "0.01em",
+                }}>Create Account</button>
+              </>
+            )}
+          </div>
+
+          <button
+            className="hamburger"
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Toggle menu"
+            style={{ display: "none" }}
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {menuOpen && (
+        <div className="mobile-menu">
+          {navItems.map(item => (
+            <button
+              key={item.path}
+              className={"mobile-menu-nav-item" + (isActive(item.path) ? " active" : "")}
+              onClick={() => { navigate(item.path); setMenuOpen(false); }}
+            >
+              {item.label}
+            </button>
+          ))}
+          <button
+            className="mobile-menu-nav-item"
+            onClick={() => { onChatOpen(); setMenuOpen(false); }}
+          >
+            💬 AI Assistant
+          </button>
+          <div className="mobile-menu-auth">
+            {isLoggedIn ? (
+              <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0" }}>
+                <div style={{
+                  width: 40, height: 40, borderRadius: "50%",
+                  background: "linear-gradient(135deg, #1a73e8, #0a2540)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "#fff", fontSize: 16, fontWeight: 600,
+                }}>{userName?.charAt(0) || "D"}</div>
+                <span style={{ fontSize: 16, fontWeight: 500, color: "#0a2540" }}>
+                  {userName || "Dr. Smith"}
+                </span>
+              </div>
+            ) : (
+              <>
+                <button className="mobile-menu-btn-secondary"
+                  onClick={() => { onAuthClick("login"); setMenuOpen(false); }}>
+                  Sign In
+                </button>
+                <button className="mobile-menu-btn-primary"
+                  onClick={() => { onAuthClick("register"); setMenuOpen(false); }}>
+                  Create Account
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -112,7 +174,7 @@ function Header({ isLoggedIn, onAuthClick, userName }) {
 function HeroSection({ onAuthClick }) {
   const navigate = useNavigate();
   return (
-    <section style={{
+    <section className="hero-section" style={{
       minHeight: "92vh", display: "flex", alignItems: "center",
       background: "linear-gradient(165deg, #f8fafd 0%, #eef3fb 40%, #e3ecf8 100%)",
       position: "relative", overflow: "hidden",
@@ -133,8 +195,8 @@ function HeroSection({ onAuthClick }) {
         color: "#0a2540", lineHeight: 1, userSelect: "none",
       }}>Pep</div>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "120px 32px 80px", width: "100%", position: "relative" }}>
-        <div style={{ maxWidth: 680 }}>
+      <div className="hero-inner" style={{ maxWidth: 1280, margin: "0 auto", padding: "120px 32px 80px", width: "100%", position: "relative" }}>
+        <div className="hero-content" style={{ maxWidth: 680 }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             background: "#fff", borderRadius: 100, padding: "6px 16px",
@@ -146,7 +208,7 @@ function HeroSection({ onAuthClick }) {
             </span>
           </div>
 
-          <h1 style={{
+          <h1 className="hero-h1" style={{
             fontFamily: "'Instrument Serif', serif", fontSize: 64,
             color: "#0a2540", lineHeight: 1.08, margin: "0 0 24px",
             letterSpacing: "-0.03em", fontWeight: 400,
@@ -165,7 +227,7 @@ function HeroSection({ onAuthClick }) {
             included with every order.
           </p>
 
-          <div style={{ display: "flex", gap: 14, marginBottom: 56 }}>
+          <div className="hero-buttons" style={{ display: "flex", gap: 14, marginBottom: 56 }}>
             <button onClick={() => navigate("/catalog")} style={{
               background: "#0a2540", color: "#fff", border: "none",
               borderRadius: 10, padding: "16px 32px", cursor: "pointer",
@@ -186,7 +248,7 @@ function HeroSection({ onAuthClick }) {
             </button>
           </div>
 
-          <div style={{ display: "flex", gap: 40, alignItems: "center" }}>
+          <div className="hero-stats" style={{ display: "flex", gap: 40, alignItems: "center" }}>
             {[
               { num: "99%+", label: "HPLC Purity" },
               { num: "2,000+", label: "Physicians" },
@@ -220,6 +282,7 @@ function ProductCard({ product, onClick }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={handleClick}
+      className="product-card"
       style={{
         background: "#fff", borderRadius: 16,
         border: hovered ? "1px solid #1a73e8" : "1px solid #e8ecf1",
@@ -286,15 +349,16 @@ function ProductDetailPage() {
   if (!product) return <Navigate to="/catalog" replace />;
 
   return (
-    <section style={{ padding: "120px 32px 80px", maxWidth: 1280, margin: "0 auto" }}>
+    <section className="product-detail-section" style={{ padding: "120px 32px 80px", maxWidth: 1280, margin: "0 auto" }}>
       <button onClick={() => navigate("/catalog")} style={{
         background: "none", border: "none", cursor: "pointer",
         fontFamily: "'DM Sans', sans-serif", fontSize: 14,
         color: "#1a73e8", fontWeight: 500, marginBottom: 32,
         display: "flex", alignItems: "center", gap: 6,
+        minHeight: 44,
       }}>← Back to Catalog</button>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }}>
+      <div className="product-detail-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64 }}>
         <div style={{
           background: "linear-gradient(135deg, #f8fafd, #eef3fb)",
           borderRadius: 20, padding: 60, display: "flex",
@@ -330,7 +394,7 @@ function ProductDetailPage() {
             color: "#0a2540", margin: "16px 0 12px", fontWeight: 400,
           }}>{product.name}</h1>
 
-          <div style={{ display: "flex", gap: 16, marginBottom: 24, fontSize: 13, color: "#718096" }}>
+          <div style={{ display: "flex", gap: 16, marginBottom: 24, fontSize: 13, color: "#718096", flexWrap: "wrap" }}>
             <span>Purity: <strong style={{ color: "#0a2540" }}>{product.purity}</strong></span>
             <span>•</span>
             <span>MW: <strong style={{ color: "#0a2540" }}>{product.molecularWeight}</strong></span>
@@ -358,7 +422,7 @@ function ProductDetailPage() {
             <div style={{ fontSize: 13, fontWeight: 600, color: "#0a2540", marginBottom: 10 }}>
               Select Size
             </div>
-            <div style={{ display: "flex", gap: 10 }}>
+            <div className="size-buttons" style={{ display: "flex", gap: 10 }}>
               {product.sizes.map((size, i) => (
                 <button key={size} onClick={() => setSelectedSize(i)} style={{
                   padding: "10px 22px", borderRadius: 8, cursor: "pointer",
@@ -366,6 +430,7 @@ function ProductDetailPage() {
                   background: selectedSize === i ? "#0a2540" : "#fff",
                   color: selectedSize === i ? "#fff" : "#0a2540",
                   border: selectedSize === i ? "2px solid #0a2540" : "2px solid #d1d9e6",
+                  minHeight: 44,
                 }}>{size}</button>
               ))}
             </div>
@@ -378,21 +443,23 @@ function ProductDetailPage() {
             <span style={{ fontSize: 13, color: "#22c55e", fontWeight: 600 }}>● In Stock</span>
           </div>
 
-          <div style={{ display: "flex", gap: 12 }}>
+          <div className="product-cta-buttons" style={{ display: "flex", gap: 12 }}>
             <button style={{
               flex: 1, background: "#0a2540", color: "#fff", border: "none",
               borderRadius: 10, padding: "16px 24px", cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600,
+              minHeight: 44,
             }}>Add to Cart</button>
             <button style={{
               background: "#fff", color: "#0a2540",
               border: "2px solid #d1d9e6", borderRadius: 10,
               padding: "16px 20px", cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600,
+              minHeight: 44,
             }}>📄 View COA</button>
           </div>
 
-          <div style={{
+          <div className="product-trust-grid" style={{
             marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
             gap: 12,
           }}>
@@ -432,7 +499,7 @@ function CatalogPage() {
   });
 
   return (
-    <section style={{ padding: "120px 32px 80px", maxWidth: 1280, margin: "0 auto" }}>
+    <section className="catalog-section" style={{ padding: "120px 32px 80px", maxWidth: 1280, margin: "0 auto" }}>
       <div style={{ marginBottom: 48 }}>
         <h2 style={{
           fontFamily: "'Instrument Serif', serif", fontSize: 44,
@@ -443,7 +510,7 @@ function CatalogPage() {
         </p>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
+      <div className="catalog-controls" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {CATEGORIES.map(cat => (
             <button key={cat} onClick={() => setActiveCategory(cat)} style={{
@@ -451,13 +518,14 @@ function CatalogPage() {
               fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500,
               background: activeCategory === cat ? "#0a2540" : "#f0f2f5",
               color: activeCategory === cat ? "#fff" : "#4a5568",
-              border: "none",
+              border: "none", minHeight: 44,
             }}>{cat}</button>
           ))}
         </div>
         <input
           type="text" placeholder="Search peptides..."
           value={searchTerm} onChange={e => setSearchTerm(e.target.value)}
+          className="catalog-search"
           style={{
             width: 260, padding: "10px 16px", borderRadius: 10,
             border: "1px solid #d1d9e6", fontFamily: "'DM Sans', sans-serif",
@@ -466,7 +534,7 @@ function CatalogPage() {
         />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+      <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
         {filtered.map(p => (
           <ProductCard key={p.id} product={p} onClick={() => navigate(`/product/${p.id}`)} />
         ))}
@@ -484,7 +552,7 @@ function CatalogPage() {
 // ─── FeaturesSection ───
 function FeaturesSection() {
   return (
-    <section style={{ padding: "80px 32px", background: "#fff" }}>
+    <section className="features-section" style={{ padding: "80px 32px", background: "#fff" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <h2 style={{
@@ -496,7 +564,7 @@ function FeaturesSection() {
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
+        <div className="features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
           {[
             { icon: "🔬", title: "99%+ Purity", desc: "Every batch verified via HPLC and Mass Spectrometry by independent, CLIA-certified laboratories." },
             { icon: "📋", title: "Full COA Access", desc: "Certificate of Analysis with complete analytical data available for every product before purchase." },
@@ -555,12 +623,12 @@ function AuthModal({ mode, onClose, onLogin }) {
   };
 
   return (
-    <div style={{
+    <div className="auth-modal-overlay" style={{
       position: "fixed", inset: 0, zIndex: 200,
       background: "rgba(10,37,64,0.5)", backdropFilter: "blur(8px)",
       display: "flex", alignItems: "center", justifyContent: "center",
     }} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()} style={{
+      <div onClick={e => e.stopPropagation()} className="auth-modal-box" style={{
         background: "#fff", borderRadius: 20, width: 460,
         padding: 40, position: "relative",
         boxShadow: "0 25px 60px rgba(0,0,0,0.15)",
@@ -568,7 +636,8 @@ function AuthModal({ mode, onClose, onLogin }) {
         <button onClick={onClose} style={{
           position: "absolute", top: 16, right: 16,
           background: "none", border: "none", cursor: "pointer",
-          fontSize: 20, color: "#718096",
+          fontSize: 20, color: "#718096", minWidth: 44, minHeight: 44,
+          display: "flex", alignItems: "center", justifyContent: "center",
         }}>✕</button>
 
         <div style={{ textAlign: "center", marginBottom: 28 }}>
@@ -599,6 +668,7 @@ function AuthModal({ mode, onClose, onLogin }) {
               background: tab === t ? "#fff" : "transparent",
               color: tab === t ? "#0a2540" : "#718096",
               boxShadow: tab === t ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+              minHeight: 44,
             }}>{t === "login" ? "Sign In" : "Register"}</button>
           ))}
         </div>
@@ -640,7 +710,7 @@ function AuthModal({ mode, onClose, onLogin }) {
             background: "#0a2540", color: "#fff", border: "none",
             borderRadius: 10, padding: "14px", cursor: "pointer",
             fontFamily: "'DM Sans', sans-serif", fontSize: 16,
-            fontWeight: 600, marginTop: 4,
+            fontWeight: 600, marginTop: 4, minHeight: 44,
           }}>
             {tab === "login" ? "Sign In" : "Create Account"}
           </button>
@@ -658,8 +728,7 @@ function AuthModal({ mode, onClose, onLogin }) {
 }
 
 // ─── ChatBot ───
-function ChatBot() {
-  const [open, setOpen] = useState(false);
+function ChatBot({ open, onOpen, onClose }) {
   const [messages, setMessages] = useState([
     { from: "bot", text: CHAT_RESPONSES.greeting },
   ]);
@@ -691,7 +760,7 @@ function ChatBot() {
 
   if (!open) {
     return (
-      <button onClick={() => setOpen(true)} style={{
+      <button onClick={onOpen} className="chatbot-fab" style={{
         position: "fixed", bottom: 28, right: 28, zIndex: 150,
         width: 64, height: 64, borderRadius: "50%",
         background: "linear-gradient(135deg, #0a2540, #1a73e8)",
@@ -703,7 +772,7 @@ function ChatBot() {
   }
 
   return (
-    <div style={{
+    <div className="chatbot-window" style={{
       position: "fixed", bottom: 28, right: 28, zIndex: 150,
       width: 400, height: 540, background: "#fff",
       borderRadius: 20, display: "flex", flexDirection: "column",
@@ -729,9 +798,10 @@ function ChatBot() {
             </div>
           </div>
         </div>
-        <button onClick={() => setOpen(false)} style={{
+        <button onClick={onClose} style={{
           background: "none", border: "none", color: "#fff",
           cursor: "pointer", fontSize: 18, opacity: 0.7,
+          minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center",
         }}>✕</button>
       </div>
 
@@ -771,6 +841,7 @@ function ChatBot() {
             border: "1px solid #d1d9e6", background: "#fff",
             cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
             fontSize: 12, color: "#4a5568", fontWeight: 500,
+            minHeight: 44,
           }}>{q}</button>
         ))}
       </div>
@@ -793,6 +864,7 @@ function ChatBot() {
           background: "#0a2540", color: "#fff", border: "none",
           borderRadius: 10, padding: "10px 16px", cursor: "pointer",
           fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600,
+          minHeight: 44,
         }}>Send</button>
       </div>
     </div>
@@ -802,11 +874,11 @@ function ChatBot() {
 // ─── Footer ───
 function Footer() {
   return (
-    <footer style={{
+    <footer className="footer-el" style={{
       background: "#0a2540", color: "#fff", padding: "60px 32px 32px",
     }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 48 }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 48 }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
               <div style={{
@@ -845,13 +917,13 @@ function Footer() {
           ))}
         </div>
 
-        <div style={{
+        <div className="footer-bottom" style={{
           borderTop: "1px solid rgba(255,255,255,0.1)",
           paddingTop: 24, display: "flex", justifyContent: "space-between",
           fontSize: 13, color: "rgba(255,255,255,0.35)",
         }}>
           <span>© 2026 PeptidePro Inc. All rights reserved.</span>
-          <div style={{ display: "flex", gap: 24 }}>
+          <div className="footer-legal" style={{ display: "flex", gap: 24 }}>
             <span style={{ cursor: "pointer" }}>Privacy Policy</span>
             <span style={{ cursor: "pointer" }}>Terms of Service</span>
             <span style={{ cursor: "pointer" }}>HIPAA Compliance</span>
@@ -865,7 +937,7 @@ function Footer() {
 // ─── AboutPage ───
 function AboutPage() {
   return (
-    <section style={{ padding: "120px 32px 80px", maxWidth: 800, margin: "0 auto" }}>
+    <section className="about-section" style={{ padding: "120px 32px 80px", maxWidth: 800, margin: "0 auto" }}>
       <h2 style={{
         fontFamily: "'Instrument Serif', serif", fontSize: 44,
         color: "#0a2540", margin: "0 0 24px", fontWeight: 400,
@@ -892,7 +964,7 @@ function AboutPage() {
 function COAPage() {
   const [products] = useState(() => getProducts());
   return (
-    <section style={{ padding: "120px 32px 80px", maxWidth: 1000, margin: "0 auto" }}>
+    <section className="coa-section" style={{ padding: "120px 32px 80px", maxWidth: 1000, margin: "0 auto" }}>
       <h2 style={{
         fontFamily: "'Instrument Serif', serif", fontSize: 44,
         color: "#0a2540", margin: "0 0 12px", fontWeight: 400,
@@ -902,7 +974,7 @@ function COAPage() {
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {products.map(p => (
-          <div key={p.id} style={{
+          <div key={p.id} className="coa-item" style={{
             display: "flex", justifyContent: "space-between", alignItems: "center",
             padding: "20px 24px", background: "#fff", borderRadius: 12,
             border: "1px solid #e8ecf1",
@@ -920,7 +992,7 @@ function COAPage() {
               background: "#f0f2f5", border: "none", borderRadius: 8,
               padding: "8px 18px", cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif", fontSize: 13,
-              fontWeight: 600, color: "#0a2540",
+              fontWeight: 600, color: "#0a2540", minHeight: 44,
             }}>📄 Download COA</button>
           </div>
         ))}
@@ -939,9 +1011,9 @@ function HomePage({ onAuthClick }) {
       <HeroSection onAuthClick={onAuthClick} />
       <FeaturesSection />
 
-      <section style={{ padding: "80px 32px", background: "#f8fafd" }}>
+      <section className="featured-section" style={{ padding: "80px 32px", background: "#f8fafd" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{
+          <div className="featured-header" style={{
             display: "flex", justifyContent: "space-between",
             alignItems: "flex-end", marginBottom: 36,
           }}>
@@ -958,10 +1030,10 @@ function HomePage({ onAuthClick }) {
               background: "none", border: "2px solid #d1d9e6",
               borderRadius: 10, padding: "10px 24px", cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-              fontWeight: 600, color: "#0a2540",
+              fontWeight: 600, color: "#0a2540", minHeight: 44,
             }}>View All →</button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {products.slice(0, 3).map(p => (
               <ProductCard key={p.id} product={p} onClick={() => navigate(`/product/${p.id}`)} />
             ))}
@@ -969,8 +1041,8 @@ function HomePage({ onAuthClick }) {
         </div>
       </section>
 
-      <section style={{ padding: "80px 32px", background: "#fff" }}>
-        <div style={{
+      <section className="cta-section" style={{ padding: "80px 32px", background: "#fff" }}>
+        <div className="cta-box" style={{
           maxWidth: 900, margin: "0 auto", textAlign: "center",
           background: "linear-gradient(135deg, #0a2540, #1a3a5c)",
           borderRadius: 24, padding: "64px 48px",
@@ -990,6 +1062,7 @@ function HomePage({ onAuthClick }) {
             background: "#fff", color: "#0a2540", border: "none",
             borderRadius: 10, padding: "16px 36px", cursor: "pointer",
             fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600,
+            minHeight: 44,
           }}>Create Physician Account</button>
         </div>
       </section>
@@ -1004,6 +1077,7 @@ function MainSite() {
   const [authModal, setAuthModal] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [chatOpen, setChatOpen] = useState(false);
 
   const handleLogin = (name) => {
     setIsLoggedIn(true);
@@ -1013,7 +1087,12 @@ function MainSite() {
 
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif", color: "#0a2540", minHeight: "100vh" }}>
-      <Header isLoggedIn={isLoggedIn} onAuthClick={setAuthModal} userName={userName} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        onAuthClick={setAuthModal}
+        userName={userName}
+        onChatOpen={() => setChatOpen(true)}
+      />
       <Routes>
         <Route index element={<HomePage onAuthClick={setAuthModal} />} />
         <Route path="catalog" element={<CatalogPage />} />
@@ -1022,7 +1101,11 @@ function MainSite() {
         <Route path="coa" element={<COAPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <ChatBot />
+      <ChatBot
+        open={chatOpen}
+        onOpen={() => setChatOpen(true)}
+        onClose={() => setChatOpen(false)}
+      />
       {authModal && (
         <AuthModal
           mode={authModal}
