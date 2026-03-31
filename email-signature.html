@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PeptidePro — Email Signature (Zoho)</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: #c8d4e0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        font-family: Arial, sans-serif;
+      }
+
+      .instructions {
+        width: 620px;
+        margin-bottom: 28px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px 24px;
+        border: 1px solid #d1d9e6;
+        font-size: 13px;
+        color: #333;
+        line-height: 1.6;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      }
+      .instructions h2 { font-size: 15px; color: #0a2540; margin-bottom: 12px; font-weight: 700; }
+      .instructions ol { padding-left: 18px; }
+      .instructions li { margin-bottom: 6px; }
+      .instructions code { background: #eef3fb; color: #1a73e8; border-radius: 4px; padding: 1px 6px; font-size: 12px; }
+
+      .copy-btn {
+        margin-bottom: 20px;
+        background: #0a2540;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 11px 28px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        letter-spacing: 0.02em;
+      }
+      .copy-btn:hover { background: #1a73e8; }
+      .copy-btn.copied { background: #22c55e; }
+
+      .preview-label {
+        font-size: 11px;
+        color: #778;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="instructions">
+      <h2>How to add this signature in Zoho Mail</h2>
+      <ol>
+        <li>Open <strong>Zoho Mail</strong> → click the <strong>gear icon ⚙</strong> (top-right) → <strong>Settings</strong>.</li>
+        <li>In the left sidebar click <strong>Signatures</strong>.</li>
+        <li>Click <strong>"Add Signature"</strong>, give it a name e.g. <code>PeptidePro</code>.</li>
+        <li>In the editor toolbar click the <strong>&lt;/&gt; Source</strong> button to switch to HTML mode.</li>
+        <li>Click <strong>"Copy Signature HTML"</strong> below, then <strong>paste</strong> into the source editor.</li>
+        <li>Click <strong>Save</strong>, then click <strong>"Set as Default"</strong> next to the signature.</li>
+      </ol>
+      <div style="margin-top:12px; padding:10px 14px; background:#eef3fb; border-radius:8px; border-left:3px solid #1a73e8; font-size:12px; color:#555;">
+        <strong>Before saving:</strong> replace the four <code>href="#"</code> in the social buttons with your actual profile URLs.
+      </div>
+    </div>
+
+    <button class="copy-btn" onclick="copySignature(this)">Copy Signature HTML</button>
+
+    <div class="preview-label">Preview</div>
+
+    <div id="sig">
+
+<table cellpadding="0" cellspacing="0" border="0" style="width:580px;max-width:580px;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(165deg,#f8fafd 0%,#eef3fb 50%,#e3ecf8 100%);border-radius:14px;overflow:hidden;border:1px solid rgba(26,115,232,0.14);box-shadow:0 2px 4px rgba(10,37,64,0.04),0 8px 24px rgba(10,37,64,0.10);">
+  <tr>
+
+    <!-- LEFT: brand -->
+    <td valign="top" style="width:265px;padding:28px 24px 24px 28px;">
+
+      <!-- Logo row -->
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+        <tr>
+          <td style="width:46px;height:46px;background:linear-gradient(135deg,#0a2540 0%,#1a73e8 100%);border-radius:12px;text-align:center;vertical-align:middle;font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#ffffff;font-weight:bold;box-shadow:0 2px 8px rgba(26,115,232,0.30);">P</td>
+          <td style="padding-left:10px;vertical-align:middle;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="font-family:Georgia,'Times New Roman',serif;font-size:28px;color:#0a2540;letter-spacing:-0.025em;line-height:1;vertical-align:middle;">PeptidePro</td>
+              <td style="padding-left:7px;vertical-align:middle;"><span style="font-family:Arial,sans-serif;font-size:9px;color:#1a73e8;font-weight:700;border:1.5px solid #1a73e8;border-radius:4px;padding:2px 5px;letter-spacing:0.06em;">USA</span></td>
+            </tr></table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Cert pill -->
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+        <tr>
+          <td style="background:rgba(255,255,255,0.72);border:1px solid rgba(26,115,232,0.16);border-radius:100px;padding:5px 12px;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="width:7px;height:7px;background:#22c55e;border-radius:50%;vertical-align:middle;"></td>
+              <td style="padding-left:7px;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#556677;font-weight:500;white-space:nowrap;">GMP-Certified &nbsp;&middot;&nbsp; USA Manufactured &nbsp;&middot;&nbsp; Third-Party Tested</td>
+            </tr></table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Tagline -->
+      <p style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:14.5px;color:#4a5568;line-height:1.55;margin:0;">Pharmaceutical-Grade Peptides<br>for Clinical Practice</p>
+
+    </td>
+
+    <!-- DIVIDER -->
+    <td style="width:1px;background:linear-gradient(to bottom,transparent 5%,rgba(26,115,232,0.28) 30%,rgba(26,115,232,0.28) 70%,transparent 95%);">&nbsp;</td>
+
+    <!-- RIGHT: contact -->
+    <td valign="top" style="padding:28px 28px 24px 28px;">
+
+      <!-- Name + title -->
+      <p style="font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#0a2540;letter-spacing:-0.01em;margin:0 0 3px 0;line-height:1.1;">Anastasia Davidenko</p>
+      <p style="font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:700;color:#1a73e8;letter-spacing:0.10em;text-transform:uppercase;margin:0 0 16px 0;">Manager</p>
+
+      <!-- Contact rows -->
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;">
+        <tr>
+          <td style="padding-bottom:7px;vertical-align:middle;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="width:20px;vertical-align:middle;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </td>
+              <td style="padding-left:7px;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#4a5568;"><a href="mailto:anastasia@peptidepro.tech" style="color:#4a5568;text-decoration:none;">anastasia@peptidepro.tech</a></td>
+            </tr></table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-bottom:7px;vertical-align:middle;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="width:20px;vertical-align:middle;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.29 6.29l1.36-1.36a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </td>
+              <td style="padding-left:7px;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#4a5568;"><a href="tel:+359887964935" style="color:#4a5568;text-decoration:none;">+359 887 964 935</a></td>
+            </tr></table>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align:middle;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="width:20px;vertical-align:middle;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </td>
+              <td style="padding-left:7px;font-family:Arial,Helvetica,sans-serif;font-size:12.5px;"><a href="https://peptidepro.tech" style="color:#1a73e8;text-decoration:none;font-weight:600;">peptidepro.tech</a></td>
+            </tr></table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Social icons -->
+      <table cellpadding="0" cellspacing="0" border="0"><tr>
+
+        <!-- LinkedIn -->
+        <td style="padding-right:7px;">
+          <a href="#" title="LinkedIn" style="display:inline-block;width:30px;height:30px;background:rgba(26,115,232,0.08);border:1px solid rgba(26,115,232,0.20);border-radius:8px;text-align:center;vertical-align:middle;text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#1a73e8" style="margin-top:8px;display:inline-block;vertical-align:top;">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </td>
+
+        <!-- Instagram -->
+        <td style="padding-right:7px;">
+          <a href="#" title="Instagram" style="display:inline-block;width:30px;height:30px;background:rgba(26,115,232,0.08);border:1px solid rgba(26,115,232,0.20);border-radius:8px;text-align:center;vertical-align:middle;text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:8px;display:inline-block;vertical-align:top;">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+        </td>
+
+        <!-- X / Twitter -->
+        <td style="padding-right:7px;">
+          <a href="#" title="X (Twitter)" style="display:inline-block;width:30px;height:30px;background:rgba(26,115,232,0.08);border:1px solid rgba(26,115,232,0.20);border-radius:8px;text-align:center;vertical-align:middle;text-decoration:none;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#1a73e8" style="margin-top:8px;display:inline-block;vertical-align:top;">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </td>
+
+        <!-- Facebook -->
+        <td>
+          <a href="#" title="Facebook" style="display:inline-block;width:30px;height:30px;background:rgba(26,115,232,0.08);border:1px solid rgba(26,115,232,0.20);border-radius:8px;text-align:center;vertical-align:middle;text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#1a73e8" style="margin-top:8px;display:inline-block;vertical-align:top;">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+        </td>
+
+      </tr></table>
+
+    </td>
+  </tr>
+
+  <!-- Bottom accent bar -->
+  <tr>
+    <td colspan="3" style="height:4px;background:linear-gradient(90deg,#0a2540 0%,#1a73e8 45%,#4fa8f5 70%,#1a73e8 85%,#0a2540 100%);font-size:0;line-height:0;">&nbsp;</td>
+  </tr>
+
+</table>
+
+    </div>
+
+    <script>
+      function copySignature(btn) {
+        const html = document.getElementById('sig').innerHTML;
+        navigator.clipboard.writeText(html).then(() => {
+          btn.textContent = '✓ Copied!';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.textContent = 'Copy Signature HTML';
+            btn.classList.remove('copied');
+          }, 2500);
+        });
+      }
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PeptidePro — Email Header</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #d5dde8;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 40px;
+        font-family: "DM Sans", sans-serif;
+      }
+
+      .card {
+        width: 720px;
+        background: linear-gradient(
+          165deg,
+          #f8fafd 0%,
+          #eef3fb 50%,
+          #e3ecf8 100%
+        );
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow:
+          0 2px 4px rgba(10, 37, 64, 0.04),
+          0 8px 24px rgba(10, 37, 64, 0.1),
+          0 24px 48px rgba(10, 37, 64, 0.08);
+        border: 1px solid rgba(26, 115, 232, 0.14);
+        position: relative;
+      }
+
+      /* Decorative radial blobs */
+      .blob-tr {
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(26, 115, 232, 0.09) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .blob-bl {
+        position: absolute;
+        bottom: -40px;
+        left: 60px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(10, 37, 64, 0.05) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* Main body */
+      .body {
+        display: flex;
+        align-items: center;
+        padding: 34px 40px;
+        gap: 0;
+        position: relative;
+      }
+
+      /* ── LEFT COLUMN ── */
+      .col-left {
+        flex: 1;
+        padding-right: 36px;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .logo-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #0a2540 0%, #1a73e8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 24px;
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+      }
+
+      .logo-name {
+        font-family: "Instrument Serif", serif;
+        font-size: 30px;
+        color: #0a2540;
+        letter-spacing: -0.025em;
+        line-height: 1;
+      }
+
+      .logo-badge {
+        font-size: 10px;
+        color: #1a73e8;
+        font-weight: 600;
+        font-family: "DM Sans", sans-serif;
+        border: 1.5px solid #1a73e8;
+        border-radius: 4px;
+        padding: 2px 6px;
+        letter-spacing: 0.06em;
+        line-height: 1;
+        align-self: center;
+      }
+
+      .cert-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(26, 115, 232, 0.16);
+        border-radius: 100px;
+        padding: 5px 13px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(4px);
+      }
+      .cert-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #22c55e;
+        flex-shrink: 0;
+      }
+      .cert-text {
+        font-size: 11.5px;
+        color: #556;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
+      .tagline {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-size: 15.5px;
+        color: #4a5568;
+        line-height: 1.55;
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        width: 1px;
+        height: 120px;
+        flex-shrink: 0;
+        background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(26, 115, 232, 0.28) 30%,
+          rgba(26, 115, 232, 0.28) 70%,
+          transparent 100%
+        );
+        margin: 0 4px;
+      }
+
+      /* ── RIGHT COLUMN ── */
+      .col-right {
+        flex-shrink: 0;
+        padding-left: 36px;
+        min-width: 230px;
+      }
+
+      .person-name {
+        font-family: "Instrument Serif", serif;
+        font-size: 21px;
+        color: #0a2540;
+        letter-spacing: -0.01em;
+        margin-bottom: 3px;
+        line-height: 1.1;
+      }
+
+      .person-title {
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        color: #1a73e8;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        margin-bottom: 16px;
+      }
+
+      .contact-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .contact-row svg {
+        flex-shrink: 0;
+        opacity: 0.85;
+      }
+      .contact-row span {
+        font-size: 13px;
+        color: #4a5568;
+        font-weight: 400;
+      }
+
+      /* Social icons */
+      .social-row {
+        display: flex;
+        gap: 7px;
+      }
+      .social-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: rgba(26, 115, 232, 0.08);
+        border: 1px solid rgba(26, 115, 232, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .social-btn:hover {
+        background: rgba(26, 115, 232, 0.16);
+      }
+
+      /* Bottom accent bar */
+      .accent-bar {
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          #0a2540 0%,
+          #1a73e8 45%,
+          #4fa8f5 70%,
+          #1a73e8 85%,
+          #0a2540 100%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="blob-tr"></div>
+      <div class="blob-bl"></div>
+
+      <div class="body">
+        <!-- LEFT: Logo + tagline -->
+        <div class="col-left">
+          <div class="logo-row">
+            <div class="logo-icon">P</div>
+            <span class="logo-name">PeptidePro</span>
+            <span class="logo-badge">Tech</span>
+          </div>
+
+          <div class="cert-pill">
+            <span class="cert-dot"></span>
+            <span class="cert-text"
+              >GMP-Certified &nbsp;·&nbsp; USA Manufactured &nbsp;·&nbsp;
+              Third-Party Tested</span
+            >
+          </div>
+
+          <p class="tagline">
+            Pharmaceutical-Grade Peptides<br />for Clinical Practice
+          </p>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider"></div>
+
+        <!-- RIGHT: Contact info -->
+        <div class="col-right">
+          <div class="person-name">Anastasia Davidenko</div>
+          <div class="person-title">Manager</div>
+
+          <div class="contact-list">
+            <!-- Email -->
+            <div class="contact-row">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#1a73e8"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+              <span>anastasia@peptidepro.tech</span>
+            </div>
+            <!-- Phone -->
+            <div class="contact-row">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#1a73e8"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.29 6.29l1.36-1.36a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                />
+              </svg>
+              <span>+359 887 964 935</span>
+            </div>
+            <!-- Website -->
+            <div class="contact-row">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#1a73e8"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path
+                  d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                />
+              </svg>
+              <span>peptidepro.tech</span>
+            </div>
+          </div>
+
+          <!-- Social placeholders -->
+          <div class="social-row">
+            <!-- LinkedIn -->
+            <a href="#" class="social-btn" title="LinkedIn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#1a73e8">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="#" class="social-btn" title="Instagram">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#1a73e8"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <!-- X / Twitter -->
+            <a href="#" class="social-btn" title="X (Twitter)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#1a73e8">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                />
+              </svg>
+            </a>
+            <!-- Facebook -->
+            <a href="#" class="social-btn" title="Facebook">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#1a73e8">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom gradient bar -->
+      <div class="accent-bar"></div>
+    </div>
+  </body>
+</html>
